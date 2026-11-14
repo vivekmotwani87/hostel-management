@@ -1,57 +1,23 @@
-version: '3.8'
-
 services:
-  # MongoDB Service (for local containerized testing)
-  mongodb:
-    image: mongo:7.0
-    container_name: hostel-mongodb
-    restart: always
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - hostel-network
-
-  # Backend REST API + Socket.IO
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     container_name: hostel-backend
-    restart: always
-    ports:
-      - '5001:5001'
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
     environment:
-      - PORT=5001
-      - NODE_ENV=production
-      - MONGODB_URI=mongodb://mongodb:27017/hostel_management
-      - JWT_SECRET=hostel_management_super_secret_jwt_key_2026
-      - JWT_EXPIRES_IN=30d
-      - CLIENT_URL=http://localhost:3000
-    depends_on:
-      - mongodb
-    networks:
-      - hostel-network
+      PORT: "5001"
+      NODE_ENV: production
+    ports:
+      - "5001:5001"
 
-  # Frontend React Application
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     container_name: hostel-frontend
-    restart: always
+    restart: unless-stopped
     ports:
-      - '3000:80'
+      - "3000:80"
     depends_on:
       - backend
-    networks:
-      - hostel-network
-
-volumes:
-  mongo-data:
-
-networks:
-  hostel-network:
-    driver: bridge
-
