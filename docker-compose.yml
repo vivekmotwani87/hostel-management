@@ -54,3 +54,4 @@ volumes:
 networks:
   hostel-network:
     driver: bridge
+

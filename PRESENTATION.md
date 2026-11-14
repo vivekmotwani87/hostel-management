@@ -102,3 +102,4 @@
 * Biometric IoT turnstile integration for automated entry/exit logs.
 * Machine Learning-based predictive roommate pairing according to study hours and habits.
 * Automated WhatsApp / SMS gateway notifications for urgent curfew updates.
+

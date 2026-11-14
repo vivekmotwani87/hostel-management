@@ -78,3 +78,4 @@ jobs:
           context: ./frontend
           push: false
           tags: hostel-frontend:ci
+

@@ -275,3 +275,4 @@ npm run build
 
 ## 📄 License
 This project is open-source and released under the [MIT License](LICENSE).
+
