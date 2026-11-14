@@ -1,0 +1,229 @@
+{
+  "info": {
+    "_postman_id": "c1f76d20-b389-4912-881c-91280b1e4281",
+    "name": "Hostel Management System API",
+    "description": "Comprehensive Postman collection for all Hostel Management System REST API endpoints including Auth, Rooms, Bookings, Complaints, Notices, Payments, and Real-Time Chat.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5001/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Student\",\n  \"email\": \"teststudent@hostel.com\",\n  \"password\": \"student123\",\n  \"role\": \"student\",\n  \"phone\": \"+91 9876543210\",\n  \"studentId\": \"STU-2026-999\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@hostel.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login Student",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@hostel.com\",\n  \"password\": \"student123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Current Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "Get All Rooms",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/rooms", "host": ["{{baseUrl}}"], "path": ["rooms"] }
+          }
+        },
+        {
+          "name": "Create Room (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomNumber\": \"B-301\",\n  \"block\": \"Block B\",\n  \"floor\": 3,\n  \"type\": \"Double\",\n  \"capacity\": 2,\n  \"rentPerMonth\": 6200,\n  \"amenities\": [\"Attached Washroom\", \"Wi-Fi\", \"Study Table\"]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/rooms", "host": ["{{baseUrl}}"], "path": ["rooms"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Get Bookings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+          }
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomId\": \"ROOM_ID_HERE\",\n  \"notes\": \"Prefers top floor\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Complaints",
+      "item": [
+        {
+          "name": "Get Complaints",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/complaints", "host": ["{{baseUrl}}"], "path": ["complaints"] }
+          }
+        },
+        {
+          "name": "Create Complaint",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Water leakage in shower\",\n  \"category\": \"Plumbing\",\n  \"priority\": \"High\",\n  \"description\": \"Water is leaking from shower mixer head constantly.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/complaints", "host": ["{{baseUrl}}"], "path": ["complaints"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notices",
+      "item": [
+        {
+          "name": "Get All Notices",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/notices", "host": ["{{baseUrl}}"], "path": ["notices"] }
+          }
+        },
+        {
+          "name": "Create Notice (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Library Weekend Extended Hours\",\n  \"content\": \"The hostel study library will remain open 24x7 during the semester examination period.\",\n  \"category\": \"General\",\n  \"priority\": \"Important\",\n  \"pinned\": true\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/notices", "host": ["{{baseUrl}}"], "path": ["notices"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Get Payments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] }
+          }
+        },
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 6000,\n  \"type\": \"Rent\",\n  \"paymentMethod\": \"UPI\",\n  \"billingMonth\": \"November 2026\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard & Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+          }
+        },
+        {
+          "name": "Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/dashboard/stats", "host": ["{{baseUrl}}"], "path": ["dashboard", "stats"] }
+          }
+        }
+      ]
+    }
+  ]
+}
