@@ -9,6 +9,7 @@ server {
     }
 
     proxy_ssl_server_name on;
+    proxy_ssl_name hostel-management-backend-5mp5.onrender.com;
 
     location /api {
         proxy_pass ${BACKEND_URL};
